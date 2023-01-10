@@ -30,12 +30,12 @@ void createCoord(){
       if((k-1)*pow(LEN_SIDE,2) <= LED && LED <= k*pow(LEN_SIDE,2)){
         LEDS_ARRAY[LED-1].Z_VALUE = (k-1);
       }
-      if(((k-1)*pow(LEN_SIDE,2) <= LED) && (LEDS <= k*pow(LEN_SIDE,2)) && (k%2 == 1){
+      if(((k-1)*pow(LEN_SIDE,2) <= LED) && (LEDS <= k*pow(LEN_SIDE,2)) && (k%2 == 1)){
         for(int j = 1; j <= LEN_SIDE; j++){
           if(((j-1)*LEN_SIDE+(k-1)*pow(LEN_SIDE,2) < LED) && (LED <= j*LEN_SIDE+k*pow(LEN_SIDE,2))){
             LEDS_ARRAY[LED-1].Y_VALUE = j-1;
           }
-          if(j%2 == 0){
+          if(j%2 == 1){
             if(LED%LEN_SIDE == 0){
               LEDS_ARRAY[LED-1].X_VALUE = LEN_SIDE-1;
             }else{
@@ -45,12 +45,20 @@ void createCoord(){
             if(LED%LEN_SIDE == 0){
               LEDS_ARRAY[LED-1].X_VALUE = 0; 
             }else{
-              LEDS_ARRAY[LED-1].X_VALUE = LED%SIDE;
+              LEDS_ARRAY[LED-1].X_VALUE = LED%LEN_SIDE;
             }
           }
         }
-      }else if((k%2) == 0){
-        
+      }else if((k%2) == 1){
+        for(int l = 1; l <= LEN_SIDE; l++){
+          if(((k-1)*pow(LEN_SIDE,2)+(l-1)*LEN_SIDE < LED) && (LED <= ((k-1)*pow(LEN_SIDE,2)+l*LEN_SIDE)){
+            LEDS_ARRAY[LED-1].Y_VALUE = LEN_SIDE-l;
+          }
+          if(l%2 == 1){
+            if()
+
+          }
+        }
       }
     }
   }
