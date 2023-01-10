@@ -1,88 +1,63 @@
 #include <FastLED.h>
-#define NUM_LED_ARRAY 27
+#define NUM_LEDS 27
 #define LED_PIN D6
-CRGB LED_ARRAY[NUM_LED_ARRAY];
-
+#define LEN_SIDE 3
+CRGB LED_ARRAY[NUM_LEDS];
 class LED {
-  private:
+  public:
+    LED();
+    LED(int led_Position);
     int X_VALUE;
     int Y_VALUE;
     int Z_VALUE;
-    int RED_VALUE;
-    int GREEN_VALUE;
-    int BLUE_VALUE;
     int LED_POSITION;
-    
-  public:
-    LED(int led_Position){
-      LED_POSITION = led_Position;
-      RED_VALUE = 0;
-      GREEN_VALUE = 0;
-      BLUE_VALUE = 0;
-      
-    }
-    
-    //setter
-    void setR_Value(int red_Value){
-      RED_VALUE = red_Value;
-      LED_ARRAY[LED_POSITION].r = RED_VALUE; 
-    }
-    
-    void setG_Value(int green_Value){
-      GREEN_VALUE = green_Value;
-      LED_ARRAY[LED_POSITION].g = GREEN_VALUE;
-    }
-    
-    void setB_Value(int blue_Value){
-      BLUE_VALUE = blue_Value;
-      LED_ARRAY[LED_POSITION].b = BLUE_VALUE;
-    }
-
-    void setRGB_Values(int red_Value, int green_Value, int blue_Value){
-      RED_VALUE = red_Value;
-      GREEN_VALUE = green_Value;
-      BLUE_VALUE = blue_Value;
-      LED_ARRAY[LED_POSITION] = CRGB(
-        red_Value,
-        green_Value, 
-        blue_Value
-      );
-    }
-
-    //getter 
-
-    int getX_Value(){
-      return X_VALUE;
-    }
-
-    int getY_Value(){
-      return Y_VALUE;
-    }
-
-    int getZ_Value(){
-      return Z_VALUE;
-    }
-
-    int getR_Value(){
-      return RED_VALUE;
-    }
-
-    int getG_Value(){
-      return GREEN_VALUE;
-    }
-
-    int getB_Value(){
-      return BLUE_VALUE;
-    }
 };
+LED::LED(){}
+LED::LED(int led_Position){
+  LED_POSITION = led_Position;
+}
 
+LED LEDS_ARRAY[NUM_LEDS];
 
 
 void createCoord(){
+  
+  for(int POSITION = 0; POSITION < NUM_LEDS; POSITION++){
+    LEDS_ARRAY[POSITION] = LED(POSITION);
   }
+  for(int LED = 1; LED <= LEN_SIDE; LED++){
+    for(int k = 1; k <= LEN_SIDE; k++){
+      if((k-1)*pow(LEN_SIDE,2) <= LED && LED <= k*pow(LEN_SIDE,2)){
+        LEDS_ARRAY[LED-1].Z_VALUE = (k-1);
+      }
+      if(((k-1)*pow(LEN_SIDE,2) <= LED) && (LEDS <= k*pow(LEN_SIDE,2)) && (k%2 == 1){
+        for(int j = 1; j <= LEN_SIDE; j++){
+          if(((j-1)*LEN_SIDE+(k-1)*pow(LEN_SIDE,2) < LED) && (LED <= j*LEN_SIDE+k*pow(LEN_SIDE,2))){
+            LEDS_ARRAY[LED-1].Y_VALUE = j-1;
+          }
+          if(j%2 == 0){
+            if(LED%LEN_SIDE == 0){
+              LEDS_ARRAY[LED-1].X_VALUE = LEN_SIDE-1;
+            }else{
+              LEDS_ARRAY[LED-1].X_VALUE = LED%LEN_SIDE-1;
+            }
+          }else{
+            if(LED%LEN_SIDE == 0){
+              LEDS_ARRAY[LED-1].X_VALUE = 0; 
+            }else{
+              LEDS_ARRAY[LED-1].X_VALUE = LED%SIDE;
+            }
+          }
+        }
+      }else if((k%2) == 0){
+        
+      }
+    }
+  }
+}
 
 void setup() {
-  FastLED.addLED_ARRAY<WS2812,LED_PIN,GRB>(LED_ARRAY,NUM_LED_ARRAY);
+  FastLED.addLeds<WS2812,LED_PIN,GRB>(LED_ARRAY,NUM_LEDS);
   createCoord();
 }
 
