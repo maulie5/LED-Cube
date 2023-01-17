@@ -78,18 +78,28 @@ void createCoord(){
 
   }
 }
-
+void reset(){
+  for(int k = 0;k<NUM_LEDS;k++){
+    LED_ARRAY[k] = CRGB(0,0,0);
+  }
+}
 void setup() {
-  FastLED.addLeds<WS2812,LED_PIN,GRB>(LED_ARRAY,NUM_LEDS);
+  FastLED.addLeds<WS2812,LED_PIN>(LED_ARRAY,NUM_LEDS);
   createCoord();
 }
 
 void loop() {
   for(int k = 0;k < NUM_LEDS;k++){
     if(LEDS_ARRAY[k].X_VALUE == 0 || LEDS_ARRAY[k].X_VALUE == 2){
-      LED_ARRAY[k] = CRGB(100,100,100);
+      LED_ARRAY[k] = CRGB(50,50,50);
     }else{
       LED_ARRAY[k] = CRGB(0,0,0);
     }
+    FastLED.show();
   }
+  delay(2000);
+  reset();
+  FastLED.show();
+  delay(2000);
+  FastLED.show();
 }
