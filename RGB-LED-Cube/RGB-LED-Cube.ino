@@ -84,11 +84,16 @@ void reset(){
   }
 }
 void setup() {
+  unsigned long currentMillis = millis();
+  unsigned long nextMillis;
   FastLED.addLeds<WS2812,LED_PIN>(LED_ARRAY,NUM_LEDS);
   createCoord();
 }
 
 void loop() {
+  nextMillis = millis();
+  unsigned long millisDifference = nextMillis - currentMillis;
+  if(millisDifference = 2000){
   for(int k = 0;k < NUM_LEDS;k++){
     if(LEDS_ARRAY[k].X_VALUE == 0 || LEDS_ARRAY[k].X_VALUE == 2){
       LED_ARRAY[k] = CRGB(50,50,50);
