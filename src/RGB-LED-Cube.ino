@@ -4,6 +4,8 @@
 #define LEN_SIDE 3
 CRGB LED_ARRAY[NUM_LEDS];
 int LAYER = LEN_SIDE*LEN_SIDE;
+//int nextMillis;
+//int currentMillis;
 class LED {
   public:
     LED();
@@ -78,33 +80,55 @@ void createCoord(){
 
   }
 }
-void reset(){
-  for(int k = 0;k<NUM_LEDS;k++){
-    LED_ARRAY[k] = CRGB(0,0,0);
+void setAll(u_int8_t red, u_int8_t green, u_int8_t blue){
+  for(u_int8_t k = 0; k<NUM_LEDS; k++){
+    LED_ARRAY[k] = CRGB(red, green, blue);
   }
 }
+void setAllX(u_int8_t x_value, u_int8_t red, u_int8_t green, u_int8_t blue){
+  for(u_int8_t k = 0; k<NUM_LEDS; k++){
+    if(LEDS_ARRAY[k].X_VALUE == x_value){
+      LED_ARRAY[k] = CRGB(red, green, blue);
+    }
+  }
+}
+void setAllY(u_int8_t y_value, u_int8_t red, u_int8_t green, u_int8_t blue){
+  for(u_int8_t k = 0; k<NUM_LEDS; k++){
+    if(LEDS_ARRAY[k].Y_VALUE == y_value){
+      LED_ARRAY[k] = CRGB(red, green, blue);
+    }
+  }
+}
+void setAllZ(u_int8_t z_value, u_int8_t red, u_int8_t green, u_int8_t blue){
+  for(u_int8_t k = 0; k<NUM_LEDS; k++){
+    if(LEDS_ARRAY[k].Z_VALUE == z_value){
+      LED_ARRAY[k] = CRGB(red, green, blue);
+    }
+  }
+}
+/*void snake(){
+  setAll(0,0,0);
+  for(u_int8_t o = 0 )
+}*/
+
+//-----------------------
 void setup() {
-  unsigned long currentMillis = millis();
-  unsigned long nextMillis;
+  
+  //unsigned long currentMillis = millis();
+  //unsigned long nextMillis;
   FastLED.addLeds<WS2812,LED_PIN>(LED_ARRAY,NUM_LEDS);
   createCoord();
 }
-
 void loop() {
-  nextMillis = millis();
-  unsigned long millisDifference = nextMillis - currentMillis;
-  if(millisDifference = 2000){
-  for(int k = 0;k < NUM_LEDS;k++){
-    if(LEDS_ARRAY[k].X_VALUE == 0 || LEDS_ARRAY[k].X_VALUE == 2){
-      LED_ARRAY[k] = CRGB(50,50,50);
-    }else{
-      LED_ARRAY[k] = CRGB(0,0,0);
+  //nextMillis = millis();
+  //unsigned long millisDifference = nextMillis - currentMillis;
+  //if(millisDifference <= 2000){
+    for(int k = 0;k < NUM_LEDS;k++){
+      LED_ARRAY[k] = CRGB(0,0,random8());
+      LED_ARRAY[k].r = LED_ARRAY[k].b/10;
+
+      FastLED.show();
     }
-    FastLED.show();
-  }
-  delay(2000);
-  reset();
-  FastLED.show();
-  delay(2000);
-  FastLED.show();
+    delay(1000);
+  //} 
 }
