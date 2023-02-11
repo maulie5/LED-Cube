@@ -226,9 +226,9 @@ void setup() {
 }
 void loop() {
   server.handleClient();
-  nextMillis = millis();
+  /*nextMillis = millis();
   u_int32_t millisDifference = nextMillis - currentMillis;
-  Serial.println(millisDifference);
+  Serial.println(millisDifference);*/
   //test();
   /*if(millisDifference <= 2000){
     for(int k = 0;k < NUM_LEDS;k++){
